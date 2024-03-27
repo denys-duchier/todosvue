@@ -10,24 +10,24 @@ def get_all_lists():
     lists = db_all_lists()
     return [l.to_json_brief() for l in db_all_lists()]
 
-@app.route("/api/v1.0/list/<id:int>", methods=["GET"])
+@app.route("/api/v1.0/list/<int:id>", methods=["GET"])
 def get_list(id):
     return db_get_list(id).to_json_brief()
 
 @app.route("/api/v1.0/list", methods=["POST"])
 def add_list():
-    return db_add_list(json).to_json()
+    return db_add_list(request.json).to_json()
 
-@app.route("/api/v1.0/list/<id:int>", methods=["DELETE"])
+@app.route("/api/v1.0/list/<int:id>", methods=["DELETE"])
 def del_list(id):
     db_del_list(id)
 
-@app.route("/api/v1.0/list/<id:int>", methods=["PUT"])
+@app.route("/api/v1.0/list/<int:id>", methods=["PUT"])
 def modify_list(id):
     db_modify_list(id, request.json)
 
 
-@app.route("/api/v1.0/item/<id:int>", methods=["GET"])
+@app.route("/api/v1.0/item/<int:id>", methods=["GET"])
 def get_item(id):
     return db_get_item(id).to_json()
 
@@ -35,10 +35,10 @@ def get_item(id):
 def add_item():
     return db_add_item(json).to_json()
 
-@app.route("/api/v1.0/item/<id:int>", methods=["DELETE"])
+@app.route("/api/v1.0/item/<int:id>", methods=["DELETE"])
 def del_item(id):
     db_del_item(id)
 
-@app.route("/api/v1.0/list/<id:int>", methods=["PUT"])
+@app.route("/api/v1.0/list/<int:id>", methods=["PUT"])
 def modify_item(id):
     db_modify_item(id, request.json)

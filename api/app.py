@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
 
-cors = CORS(app, resources={r"/api/v1.0/*": {"origins": ["http://127.0.0.1:5000","http://localhost:5000"]}})
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/v1.0/*": {"origins": ["http://127.0.0.1:5173","http://localhost:5173"]}})
 
 import os
 
@@ -15,7 +15,7 @@ def mkpath(p):
 from flask_sqlalchemy import SQLAlchemy
 
 app.config['SQLALCHEMY_DATABASE_URI'] = (
-    'sqlite:///' + mkpath('../quiz.db')
+    'sqlite:///' + mkpath('../todo.db')
 )
 
 db = SQLAlchemy(app)

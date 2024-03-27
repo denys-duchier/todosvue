@@ -4,6 +4,8 @@ from flask import url_for, jsonify
 
 class TodoList(db.Model):
 
+    __tablename__ = "todolist"
+
     id   = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
 
@@ -12,7 +14,7 @@ class TodoList(db.Model):
 
     def to_json(self):
         json = {
-            "url": url_for("todolist"
+            "url": url_for("get_list",
                 id=self.id, _external=True),
             "name": self.name,
             "items": [i.to_json() for i in self.items.all()]
@@ -21,7 +23,7 @@ class TodoList(db.Model):
 
     def to_json_brief(self):
         json = {
-            "url": url_for("todolist"
+            "url": url_for("get_list",
                 id=self.id, _external=True),
             "name": self.name
         }
@@ -42,6 +44,8 @@ class TodoList(db.Model):
 
 class TodoItem(db.Model):
 
+    __tablename__ = "todoitem"
+
     id   = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     list_id = db.Column(db.Integer, db.ForeignKey('todolist.id'))
@@ -54,8 +58,9 @@ class TodoItem(db.Model):
 
     def to_json(self):
         json = {
-            "url": url_for("todoitem",
+            "url": url_for("get_item",
                 id=self.id, _external=True),
+            "list_id": self.list_id,
             "id": self.id,
             "name": self.name
         }

@@ -1,2 +1,2 @@
-FLASK_APP=quiz
+FLASK_APP=api
 FLASK_DEBUG=1

@@ -1,6 +1,10 @@
 <script setup>
-import { reactive } from 'vue'
-import { all_lists } from '../api.js'
+import { reactive, onMounted } from 'vue'
+import { all_lists } from './api.js'
+import Lists from './components/Lists.vue'
+import List from './components/List.vue'
+import Item from './components/Item.vue'
+
 const state = reactive(
     {
         which: "all",
@@ -9,11 +13,12 @@ const state = reactive(
         item: null
     }
 )
-state.lists = await all_lists()
+
+onMounted(async () => { state.lists = await all_lists() })
 </script>
 
 <template>
-    <Lists v-show="state.which.value == 'all'" v-model="state"></Lists>
-    <List v-show="state.which.value == 'list'" v-model="state"></List>
-    <Item v-show="state.which.value == 'item'" v-model="state"></Item>
+    <Lists v-show="state.which == 'all'" v-model="state"></Lists>
+    <List v-show="state.which == 'list'" v-model="state"></List>
+    <Item v-show="state.which == 'item'" v-model="state"></Item>
 </template>
